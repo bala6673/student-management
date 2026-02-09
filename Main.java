@@ -1,20 +1,22 @@
 package src;
+
 import java.util.*;
 import java.sql.Date;
 import java.sql.ResultSet;
+
 public class Main {
-    static final String URL="jdbc:mysql://localhost:3306/studentdb";
-    static final String USER="root";
-    static final String PASS="root";
+    static final String URL = "jdbc:mysql://localhost:3307/studentdb";
+    static final String USER = "root";
+    static final String PASS = "root";
 
-    static LinkedHashSet<Student> list=new LinkedHashSet<>();
+    static LinkedHashSet<Student> list = new LinkedHashSet<>();
 
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args) throws Exception {
 
-        Scanner sc=new Scanner(System.in);
-        StudentDAO dao=new StudentDAO();
+        Scanner sc = new Scanner(System.in);
+        StudentDAO dao = new StudentDAO();
 
-        while(true){
+        while (true) {
 
             System.out.println("\n1 Add PartTime");
             System.out.println("2 Add FullTime");
@@ -26,24 +28,24 @@ public class Main {
             System.out.println("8 Sort FirstName");
             System.out.println("9 Exit");
 
-            int ch=sc.nextInt();
+            int ch = sc.nextInt();
 
-            switch(ch){
+            switch (ch) {
 
                 case 1:
                 case 2:
                     System.out.println("Enter id fname lname doj(yyyy-mm-dd)");
-                    int id=sc.nextInt();
-                    String fn=sc.next();
-                    String ln=sc.next();
-                    Date doj=Date.valueOf(sc.next());
+                    int id = sc.nextInt();
+                    String fn = sc.next();
+                    String ln = sc.next();
+                    Date doj = Date.valueOf(sc.next());
 
                     Student s;
 
-                    if(ch==1)
-                        s=new PartTimeStudent(id,fn,ln,doj);
+                    if (ch == 1)
+                        s = new PartTimeStudent(id, fn, ln, doj);
                     else
-                        s=new FullTimeStudent(id,fn,ln,doj);
+                        s = new FullTimeStudent(id, fn, ln, doj);
 
                     list.add(s);
                     dao.addStudent(s);
@@ -51,14 +53,14 @@ public class Main {
 
                 case 3:
                     System.out.println("Enter id");
-                    int rid=sc.nextInt();
-                    list.removeIf(st->st.getId()==rid);
+                    int rid = sc.nextInt();
+                    list.removeIf(st -> st.getId() == rid);
                     dao.removeStudent(rid);
                     break;
 
                 case 4:
                     System.out.println("Enter id");
-                    int vid=sc.nextInt();
+                    int vid = sc.nextInt();
                     dao.view(vid);
                     // System.out.println(dao.view(vid));
                     break;
